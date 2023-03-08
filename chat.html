@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatLit Installer</title>
+
+    <style>
+        body {
+            padding: 10px;
+            font-size: 20px;
+            font-family: sans-serif;
+        }
+
+        a {
+            background-color: rgb(50, 200, 100);
+            padding: 12px;
+            width: 100px;
+            font-weight: 600;
+            color: black;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <script type>
+var sourceCode = `<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatLit</title>
+
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: black; 
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(75, 75, 75); 
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(100, 100, 100); 
+        }
+
+        body {
+            background-color: rgb(40, 45, 50);
+            font-family: "Lato", sans-serif;
+            color: rgb(200, 200, 200);
+            margin: 0px;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        
+        #chat-log {
+            height: calc(92vh - 110px);
+            overflow: auto;
+            margin-top: 54px;
+            margin-bottom: 7px;
+        }
+
+        #user-input {
+            background-color: rgb(72, 75, 82);
+            color: white;
+            width: calc(90vw - 40px);
+            padding: 12px;
+            outline: none;
+            border: none;
+            border-radius: 100px;
+        }
+
+        .msg-el {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+            padding: 6px;
+            margin: 6px;
+        }
+        .msg-el div {
+            word-wrap: break-word;
+        }
+
+        .sidenav {
+            user-select: none;
+            height: 100vh;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: rgb(20, 25, 30);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 15px;
+        }
+
+        .sidenav span {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .sidenav span:hover {
+            color: #f1f1f1;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #top-bar {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            padding: 10px;
+            user-select: none;
+        }
+        #top-bar span {
+            font-size: 24px;
+            cursor: pointer;
+            float: left;
+            margin-left: 5px;
+            margin-right: 13px;
+        }
+        
+        #alert {
+            z-index: 1000;
+            width: 400px;
+            background-color: white;
+            color: black;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.6);
+            position: absolute;
+            top: 10px;
+            left: calc(50vw - 215px);
+            padding: 15px;
+            padding-top: 4px;
+            padding-bottom: 40px;
+            font-family: trebuchet MS, sans-serif;
+        }
+        #alert p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        #alert span {
+            font-size: 13px;
+            position: absolute;
+            left: 12px;
+            bottom: 38px;
+        }
+        #alert input {
+            margin-top: 5px;
+            border: 2px solid rgb(26, 115, 232);
+            outline: none;
+            border-radius: 3px;
+            position: absolute;
+            left: 12px;
+            bottom: 12px;
+            width: 200px;
+        }
+        #alert button {
+            cursor: pointer;
+            border-radius: 3px;
+            width: 75px;
+            height: 30px;
+            font-weight: 500;
+            position: absolute;
+            bottom: 12px;
+        }
+        #alert .submit-btn {
+            background-color: rgb(26, 115, 232);
+            border: 1px solid rgb(26, 115, 232);
+            color: white;
+            right: 95px;
+        }
+        #alert .submit-btn:hover {
+            background-color: rgb(40, 125, 245);
+        }
+        #alert .close-btn {
+            background-color: white;
+            border: 1px solid rgb(200, 200, 200);
+            color: rgb(26, 115, 232);
+            right: 12px;
+        }
+        #alert .close-btn:hover {
+            background-color: rgb(225, 240, 255);
+        }
+
+        #change-username {
+            background-color: rgb(75, 80, 85);
+            border-radius: 3px;
+            border: none;
+            margin-left: 8px;
+            color: rgb(200, 200, 200);
+            padding: 5px;
+        }
+        #change-username:hover {
+            background-color: rgb(100, 105, 110);
+            color: rgb(225, 225, 225);
+            cursor: pointer;
+        }
+
+        #send-btn {
+            height: 40px;
+            transform: translate(0px, 15px);
+            border-radius: 100px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        #send-btn:hover {
+            box-shadow: 0px 0px 6px rgba(240, 255, 255, 0.7);
+        }
+
+        button, img {
+            user-select: none;
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/gh/ricmoo/aes-js/index.min.js"><\/script>
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"><\/script>
+</head>
+<body>
+
+    <div id="mySidenav" class="sidenav">
+        <span class="closebtn">&times;</span>
+        <span>About</span>
+        <span>View Public Chat</span>
+        <span>Create/Join Private Chat</span>
+        <span>Help</span>
+        <span>Update</span>
+    </div>
+
+    <div id="chat-log"></div>
+
+    <div style="margin-left: 20px;">
+        <span id="username"></span>
+        <button id="change-username">Change Username</button>
+    </div>
+
+    <div style="text-align: center; margin-top: -8px;">
+        <input id="user-input" autocomplete="off" placeholder="Type a message..." type="text">
+        <svg id="send-btn" xmlns="http://www.w3.org/2000/svg" x="0px"y="0px"viewBox="0 0 128 128"><circle fill="#55A8D7"cx="64"cy="64"r="63"/><path fill="white"d="M43,75 C37,71 31,68 25,64 C22,63 25,61 27,60 C87,40 93,39 99,37 C93,60 87,77 81,95 C80,98 77,98 75,96 C70,93 65,90 59,86"/><path fill="#C9D2E1" d="M44,75 C54,67 74,56 83,51 C62,72 58,77 53,82 C52,85 51,89 50,92 z"/><path fill="#AAC4D1"d=" M50,92 C51,89 52,85 53,82 C55,83 57,85 59,86 C57,90 54,93 50,92 z"/></svg>
+    </div>
+
+    <div id="top-bar">
+        <img style="height: 35px; display: inline-block; margin-right: 8px;" src="data:image/png;base64,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">
+        <strong style="font-size: 22px; transform: translate(2px, -10px); display: inline-block;">ChatLit 1.2</strong>
+        <span onclick="openNav(true)">&#9776;</span>
+    </div>
+
+    <script>
+var chatLog = document.getElementById("chat-log");
+var usernameEl = document.getElementById("username");
+var chatIn = document.getElementById("user-input");
+var sideNav = document.getElementById("mySidenav");
+var changeUsernameBtn = document.getElementById("change-username");
+var sendBtn = document.getElementById("send-btn");
+
+var mod = (a, b) => (a % b);
+
+var popup = null;
+function customAlert(info, prompt) {
+    if (popup) popup.remove();
+    popup = document.createElement("div");
+    popup.id = "alert";
+    popup.innerHTML = "<p>" + info + "</p>";
+    if (prompt) {
+        popup.innerHTML += "<span>" + prompt + "</span><br><input><button class='submit-btn'>OK</button>";
+    }
+    popup.innerHTML += "<button class='close-btn'>Close</button>";
+    document.body.appendChild(popup);
+
+    let prom = new Promise(res => {
+        let closebtn = popup.getElementsByClassName("close-btn")[0];
+        closebtn.onclick = function () {
+            res({
+                rejected: true
+            });
+            popup.remove();
+            popup = null;
+        };
+
+        if (prompt) {
+            let submitbtn = popup.getElementsByClassName("submit-btn")[0];
+            let inputEl = popup.getElementsByTagName("input")[0];
+            submitbtn.onclick = function () {
+                res({
+                    value: popup.getElementsByTagName("input")[0].value
+                });
+                popup.remove();
+                popup = null;
+            };
+            inputEl.focus();
+            inputEl.addEventListener("keyup", e => {
+                if ((e.keyCode ? e.keyCode : e.which) === 13) submitbtn.click();
+            });
+        } else {
+            closebtn.focus();
+        }
+    });
+
+    prom.closeAlert = function () {
+        popup.remove();
+        popup = null;
+    };
+
+    return prom;
+}
+
+var pfpColors = [
+    "0,0,0",
+    "200,0,0",
+    "0,200,0",
+    "0,0,200",
+    "200,200,0",
+    "0,200,200",
+    "200,0,200",
+];
+
+var userColors = {};
+
+usernameEl.innerText = "user" + Math.random().toString().split(".")[1].slice(0, 4);
+
+changeUsernameBtn.onclick = function () {
+    customAlert("Change your username.", "Enter new username:").then(res => {
+        if (res.value) {
+            usernameEl.innerText = res.value.slice(0, 32);
+        }
+    });
+};
+
+function openNav(o) {
+    sideNav.style.width = o ? "250px" : "0";
+}
+
+var privateKey = null;
+
+var sideNavEls = sideNav.getElementsByTagName("span");
+sideNavEls[0].onclick = () => {
+    openNav(false);
+};
+sideNavEls[1].onclick = () => {
+    customAlert("ChatLit is a secure, real-time, lightweight, free, open-source, fast, and anonymous chat app designed to be opened from a bookmarks bar for maximum ease of use. Handcrafted to be less than 13kB. Uses the same advanced encryption standard as the U.S. government.");
+};
+sideNavEls[2].onclick = () => {
+    privateKey = null;
+    openNav(false);
+};
+sideNavEls[3].onclick = () => {
+    customAlert("Create a name for a new private chat, or enter the name of an already existing private chat to join it.", "Enter chat name:").then(res => {
+        if (res.value) {
+            privateKey = res.value;
+            var idx = 0;
+            while (privateKey.length < 16) {
+                privateKey += privateKey.charAt(idx++);
+            }
+            privateKey = privateKey.split("").map(c => c.charCodeAt() % 255);
+            chatLog.innerHTML = "";
+            customAlert("Share your chat's name with others so that they can connect to it!").then(_ => {
+                openNav(false);
+            });
+        }
+    });
+};
+sideNavEls[4].onclick = () => {
+    customAlert("If your app isn't working here are some possible reasons: <br>1) You are opening the app while currently on a website that blocks it such as Google. Try opening it while on a different website. Try navigating to 'about:blank' in your URL bar and then open the app.<br>2) You have poor internet connection.<br>3) You need to update the app (see Update in the sidebar menu)");
+};
+sideNavEls[5].onclick = () => {
+    customAlert("ChatLit doesn't have an update manager. To perform an update simply delete the app from your bookmarks bar, and then re-install it from: <a target='_blank' href='https://khanacademy.org/cs/i/6593409578221568'>https://khanacademy.org/cs/i/6593409578221568</a>");
+};
+
+function byteArrToB64(bytes) {
+    var binary = '';
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa(binary);
+}
+
+function B64ToByteArr(base64) {
+    var binary_string = window.atob(base64);
+    var len = binary_string.length;
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+        bytes[i] = binary_string.charCodeAt(i);
+    }
+    return bytes;
+}
+
+function displayMsg (txt, author, timestamp) {
+    let msgEl = document.createElement("div");
+    msgEl.className = "msg-el";
+
+    /* profile pic */
+    if (!userColors[author]) userColors[author] = (Math.random() * pfpColors.length) | 0;
+    msgEl.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg"height="30px"viewBox="0,0,256,256"style="margin-right:8px;"><g><g transform="scale(6.4,6.4)"><g><circle fill="rgb(' + pfpColors[userColors[author]] + ')"cx="20"cy="20"r="20"/><circle fill="white"cx="20"cy="17"r="8"/><path d="M20,28.4c-5.2,0 -10,2.3 -13.4,6.4c7.6,7 19,7 27,0c-3,-4 -8,-6.5 -13.4,-6.4z" fill="white"></path></g></g></g></svg>';
+
+    /* info */
+    let el = document.createElement("div");
+    el.style.height = "30px";
+    el.style.verticalAlign = "top";
+    el.style.display = "inline-block";
+    el.style.paddingTop = "8px";
+    msgEl.append(el);
+
+    /* author */
+    let a = document.createElement("strong");
+    a.style.marginRight = "8px";
+    a.innerText = author;
+    el.append(a);
+
+    /* time */
+    let b = document.createElement("div");
+    b.style.display = "inline-block";
+    let tim = new Date(timestamp);
+    b.innerText = mod(tim.getHours(), 12) + ":" + tim.getMinutes().toString().padStart(2, "0") + " " + (tim.getHours() <= 12 ? "AM" : "PM");
+    el.append(b);
+
+    /* content */
+    let t = document.createElement("div");
+    t.innerText = txt;
+    msgEl.append(t);
+
+    chatLog.appendChild(msgEl);
+    chatLog.scrollTop = chatLog.scrollHeight;
+}
+
+var endpoint = "wss://demo.piesocket.com/v3/channel_123?api_key=VCXCEuvhGcBDP7XhiJJUDvR1e1D3eiVjgZ9VRiaV&notify_self";
+var socket = new WebSocket(endpoint);
+
+function sendMsg(obj) {
+    var textBytes = aesjs.utils.utf8.toBytes(JSON.stringify(obj));
+    var publicKey = [122, 31, 96, 166, 137, 246, 57, 205, 18, 160, 187, 19, 118, 243, 148, 197];
+    var encryptedBytes = new aesjs.ModeOfOperation.ctr(privateKey === null ? publicKey : privateKey).encrypt(textBytes);
+    if (socket.readyState === 1) {
+        socket.send(byteArrToB64(encryptedBytes));
+        console.log("message sent");
+    } else {
+        customAlert("Failed to send message because the connection is closed.");
+    }
+}
+
+function setSocketHandlers () {
+    var closeAlert = customAlert("Establishing connection...").closeAlert;
+    socket.onopen = function () {
+        setTimeout(closeAlert, 800);
+        displayMsg("Connection opened!", "CLIENT", Date.now());
+        sendMsg({
+            host: "chatlit",
+            event: "join",
+            sender: "SERVER",
+            text: usernameEl.innerText + " just joined.",
+            time: Date.now()
+        });
+    };
+    
+    socket.onmessage = function (msg) {
+        try {
+            var encryptedBytes = B64ToByteArr(msg.data);
+            var publicKey = [122, 31, 96, 166, 137, 246, 57, 205, 18, 160, 187, 19, 118, 243, 148, 197];
+            var decryptedBytes = new aesjs.ModeOfOperation.ctr(privateKey === null ? publicKey : privateKey).decrypt(encryptedBytes);
+            var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+
+            msg = JSON.parse(decryptedText);
+            if (msg && msg.host === "chatlit") {
+                console.log("message recieved", msg);
+
+                if (msg.event === "join") {
+                    displayMsg("A new person has joined the chat", msg.sender, msg.time);
+                } else if (msg.event === "msg" && msg.chat === 0) {
+                    displayMsg(msg.text, msg.sender, msg.time);
+                }
+            }
+        } catch (e) {}
+    };
+    
+    socket.onclose = e => {
+        customAlert("Connection lost. Reconnecting...");
+        setTimeout(setSocketHandlers, 1000);
+    };
+
+    socket.onerror = e => {
+        customAlert("Failed to connect. Try restarting the app. The server may be down.");
+        socket.onclose = () => {};
+    };
+}
+setSocketHandlers();
+
+/* handle keyboard input */
+function doSend() {
+    if (chatIn.value.length > 0) {
+        sendMsg({
+            host: "chatlit",
+            event: "msg",
+            chat: 0,
+            sender: usernameEl.innerText,
+            text: chatIn.value,
+            time: Date.now()
+        });
+    
+        chatIn.value = "";
+    }
+}
+sendBtn.addEventListener("mouseup", doSend);
+chatIn.addEventListener("keyup", e => {
+    if ((e.keyCode ? e.keyCode : e.which) === 13) doSend();
+});
+
+    <\/script>
+</body>
+</html>
+`;
+    </script>
+
+    <h1>Compiling App...</h1>
+
+    <script src="https://cdn.jsdelivr.net/npm/html-minifier-terser@7.1.0/dist/htmlminifier.umd.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js"></script>
+    
+    <script type>
+// http://www.webtoolkit.info
+var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode: function(input){var output="";var chr1,chr2,chr3,enc1,enc2,enc3,enc4;var i=0;input=Base64._utf8_encode(input);while(i<input.length){chr1=input.charCodeAt(i++); chr2 = input.charCodeAt(i++); chr3 = input.charCodeAt(i++); enc1 = chr1 >> 2; enc2 = ((chr1 & 3) << 4) | (chr2 >> 4); enc3 = ((chr2 & 15) << 2) | (chr3 >> 6); enc4 = chr3 & 63; if (isNaN(chr2)) { enc3 = enc4 = 64; } else if (isNaN(chr3)) { enc4 = 64; } output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4); } return output; } , decode: function(input) { var output = ""; var chr1, chr2, chr3; var enc1, enc2, enc3, enc4; var i = 0; input = input.replace(/[^A-Za-z0-9\+\/\=]/g, ""); while (i < input.length) { enc1 = this._keyStr.indexOf(input.charAt(i++)); enc2 = this._keyStr.indexOf(input.charAt(i++)); enc3 = this._keyStr.indexOf(input.charAt(i++)); enc4 = this._keyStr.indexOf(input.charAt(i++)); chr1 = (enc1 << 2) | (enc2 >> 4); chr2 = ((enc2 & 15) << 4) | (enc3 >> 2); chr3 = ((enc3 & 3) << 6) | enc4; output = output + String.fromCharCode(chr1); if (enc3 != 64) { output = output + String.fromCharCode(chr2); } if (enc4 != 64) { output = output + String.fromCharCode(chr3); } } output = Base64._utf8_decode(output); return output; } , _utf8_encode: function(string) { var utftext = ""; string = string.replace(/\r\n/g, "\n"); for (var n = 0; n < string.length; n++) { var c = string.charCodeAt(n); if (c < 128) { utftext += String.fromCharCode(c); } else if ((c > 127) && (c < 2048)) { utftext += String.fromCharCode((c >> 6) | 192); utftext += String.fromCharCode((c & 63) | 128); } else { utftext += String.fromCharCode((c >> 12) | 224); utftext += String.fromCharCode(((c >> 6) & 63) | 128); utftext += String.fromCharCode((c & 63) | 128); } } return utftext; } , _utf8_decode: function(utftext) { var string = ""; var i = 0; var c, c1, c2, c3; c = c1 = c2 = 0; while (i < utftext.length) { c = utftext.charCodeAt(i); if (c < 128) { string += String.fromCharCode(c); i++; } else if ((c > 191) && (c < 224)) { c2 = utftext.charCodeAt(i + 1); string += String.fromCharCode(((c & 31) << 6) | (c2 & 63)); i += 2; } else { c2 = utftext.charCodeAt(i + 1); c3=utftext.charCodeAt(i+2);string+=String.fromCharCode(((c&15)<<12)|((c2&63)<<6)|(c3&63));i+=3;}}return string;}};
+
+HTMLMinifier.minify(sourceCode.replaceAll("\n", " "), {
+    collapseInlineTagWhitespace: true,
+    collapseWhitespace: true,
+    removeComments: true,
+    minifyCSS: true,
+    minifyJS: true
+}).then(async distCode => {
+    var bin = Base64.encode(Array.from(pako.gzip(distCode)).map(b => String.fromCharCode(b)).join(""));
+    var initCode = `
+var appWin = window.open("about:blank", "Chatlit", "width=450,height=500");
+import("https://cdn.jsdelivr.net/npm/pako@2.1.0/dist/pako.min.js").then(() => {
+    var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode: function(input){var output="";var chr1,chr2,chr3,enc1,enc2,enc3,enc4;var i=0;input=Base64._utf8_encode(input);while(i<input.length){chr1=input.charCodeAt(i++); chr2 = input.charCodeAt(i++); chr3 = input.charCodeAt(i++); enc1 = chr1 >> 2; enc2 = ((chr1 & 3) << 4) | (chr2 >> 4); enc3 = ((chr2 & 15) << 2) | (chr3 >> 6); enc4 = chr3 & 63; if (isNaN(chr2)) { enc3 = enc4 = 64; } else if (isNaN(chr3)) { enc4 = 64; } output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4); } return output; } , decode: function(input) { var output = ""; var chr1, chr2, chr3; var enc1, enc2, enc3, enc4; var i = 0; input = input.replace(/[^A-Za-z0-9\\+\\/\\=]/g, ""); while (i < input.length) { enc1 = this._keyStr.indexOf(input.charAt(i++)); enc2 = this._keyStr.indexOf(input.charAt(i++)); enc3 = this._keyStr.indexOf(input.charAt(i++)); enc4 = this._keyStr.indexOf(input.charAt(i++)); chr1 = (enc1 << 2) | (enc2 >> 4); chr2 = ((enc2 & 15) << 4) | (enc3 >> 2); chr3 = ((enc3 & 3) << 6) | enc4; output = output + String.fromCharCode(chr1); if (enc3 != 64) { output = output + String.fromCharCode(chr2); } if (enc4 != 64) { output = output + String.fromCharCode(chr3); } } output = Base64._utf8_decode(output); return output; } , _utf8_encode: function(string) { var utftext = ""; string = string.replace(/\\r\\n/g, "\\n"); for (var n = 0; n < string.length; n++) { var c = string.charCodeAt(n); if (c < 128) { utftext += String.fromCharCode(c); } else if ((c > 127) && (c < 2048)) { utftext += String.fromCharCode((c >> 6) | 192); utftext += String.fromCharCode((c & 63) | 128); } else { utftext += String.fromCharCode((c >> 12) | 224); utftext += String.fromCharCode(((c >> 6) & 63) | 128); utftext += String.fromCharCode((c & 63) | 128); } } return utftext; } , _utf8_decode: function(utftext) { var string = ""; var i = 0; var c, c1, c2, c3; c = c1 = c2 = 0; while (i < utftext.length) { c = utftext.charCodeAt(i); if (c < 128) { string += String.fromCharCode(c); i++; } else if ((c > 191) && (c < 224)) { c2 = utftext.charCodeAt(i + 1); string += String.fromCharCode(((c & 31) << 6) | (c2 & 63)); i += 2; } else { c2 = utftext.charCodeAt(i + 1); c3=utftext.charCodeAt(i+2);string+=String.fromCharCode(((c&15)<<12)|((c2&63)<<6)|(c3&63));i+=3;}}return string;}};
+    appWin.document.write(Array.from(pako.ungzip(Base64.decode(${JSON.stringify(bin)}).split("").map(c => c.charCodeAt(0)))).map(b => String.fromCharCode(b)).join(""));
+    appWin.document.close();
+    let alerted = false;
+    appWin.document.addEventListener("securitypolicyviolation", e => {
+        if (!alerted) {
+            let div = document.createElement("div");
+            div.innerHTML = '<div style="all:unset;z-index:1000000;user-select:none;position:fixed;left:calc(50vw - 30%);top:calc(50vh - 64px);display:block;background-color:rgb(240,255,240);width:60%;padding:10px;padding-top:20px;padding-bottom:20px;font-family:sans-serif;font-size:18px;border:4px solid black;border-radius:10px;text-align:center;">' + window.location.host + ' blocked the chat from opening.<br><br>Try again from a <a style="all:unset;text-decoration:underline;color:rgb(0,50,200);cursor:pointer;" href="about:blank" target="_blank">New Tab</a></div>';
+            document.body.appendChild(div);
+            let handler = () => {
+                setTimeout(() => {
+                    div.remove();
+                    document.body.removeEventListener("mouseup", handler);
+                }, 100);
+            };
+            document.body.addEventListener("mouseup", handler);
+            appWin.close();
+            alerted = true;
+        }
+    });
+});
+    `.replaceAll("\n", "").replaceAll("    ", "");
+
+    console.log(distCode);
+    console.log(JSON.stringify(bin));
+
+    document.body.innerHTML = '<div>App compiled successfully! Drag the green box below to your browser\'s bookmarks bar to install the app. Then click the bookmark to run the app.</div><br><a>Chatlit 1.2</a>';
+    document.getElementsByTagName("a")[0].href = 'javascript: ' + initCode.trim();
+    console.log("data:text/html;base64," + btoa(sourceCode));
+});
+    </script>
+
+</body>
+</html>
